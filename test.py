@@ -3,7 +3,7 @@ import sys
 import start
 
 
-class TestPolarityMethods(unittest.TestCase):
+class TestSentimentAnalyzer(unittest.TestCase):
 
     def test_polarity_tag(self):
         polarities = [
@@ -37,8 +37,18 @@ class TestPolarityMethods(unittest.TestCase):
         for l in levels:
             self.assertEqual(start.configure_log_level(l['value']), l['expected'])
 
+    def test_get_sentiment(self):
+        sentiment = start.get_sentiment('this is my text', extended=False)
+        self.assertEqual(len(sentiment), 3)
+        self.assertIsInstance(sentiment, dict)
+
+    def test_get_extendend_sentiment(self):
+        sentiment = start.get_sentiment('this is my text', extended=True)
+        self.assertEqual(len(sentiment), 7)
+        self.assertIsInstance(sentiment, dict)
+
 if __name__ == '__main__':
-    test_suite = unittest.TestLoader().loadTestsFromTestCase(TestPolarityMethods)
+    test_suite = unittest.TestLoader().loadTestsFromTestCase(TestSentimentAnalyzer)
     test_runner = unittest.TextTestRunner(verbosity=2).run(test_suite)
     ret = not test_runner.wasSuccessful()
     sys.exit(ret) 

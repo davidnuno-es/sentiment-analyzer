@@ -1,3 +1,4 @@
+[![Build Status](https://travis-ci.org/davidnuno-es/sentiment-analyzer.svg?branch=master)](https://travis-ci.org/davidnuno-es/sentiment-analyzer)
 # Python Sentiment Analyzer
 
 Programa que analiza los sentimientos de un texto

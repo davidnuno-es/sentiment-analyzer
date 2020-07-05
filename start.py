@@ -46,7 +46,6 @@ def __get_extended_analysis(original_text, language, analysis):
         "text": analysis.__str__(),
         "polarity": analysis.sentiment.polarity,
         "subjectivity": analysis.sentiment.subjectivity,
-        "value": round(analysis.sentiment.polarity),
         "tag": polarity_tag(analysis.sentiment.polarity),
         'extended_tag': polarity_extended_tag(analysis.sentiment.polarity),
         "assesment": [v[0][0] for x, v in enumerate(analysis.sentiment_assessments.assessments)]
