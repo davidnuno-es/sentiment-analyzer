@@ -1,5 +1,7 @@
 import unittest
+import sys
 import start
+
 
 class TestPolarityMethods(unittest.TestCase):
 
@@ -11,7 +13,7 @@ class TestPolarityMethods(unittest.TestCase):
         ]
 
         for p in polarities:
-            self.assertEqual(start.__polarity_tag(p['value']), p['expected'])
+            self.assertEqual(start.polarity_tag(p['value']), p['expected'])
     
     def test_polarity_extended_tag(self):
         polarities = [
@@ -36,4 +38,11 @@ class TestPolarityMethods(unittest.TestCase):
             self.assertEqual(start.configure_log_level(l['value']), l['expected'])
 
 if __name__ == '__main__':
-    unittest.main()
+    test_suite = unittest.TestLoader().loadTestsFromTestCase(TestPolarityMethods)
+    test_runner = unittest.TextTestRunner(verbosity=2).run(test_suite)
+    ret = not test_runner.wasSuccessful()
+    sys.exit(ret) 
+    """ 
+    Travis build status depends on exit code.
+    Without the last line the exit code of the program is 0 even if the tests fail.
+    """

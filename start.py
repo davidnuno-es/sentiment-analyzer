@@ -8,7 +8,7 @@ Utiliza la librería TextBlob y enriquece el resultado.
 from textblob import TextBlob
 import logging
 
-def __polarity_tag(polarity):
+def polarity_tag(polarity):
     """
     Determina si la polaridad de un texto es positiva, neutral o negativa
     """
@@ -47,7 +47,7 @@ def __get_extended_analysis(original_text, language, analysis):
         "polarity": analysis.sentiment.polarity,
         "subjectivity": analysis.sentiment.subjectivity,
         "value": round(analysis.sentiment.polarity),
-        "tag": __polarity_tag(analysis.sentiment.polarity),
+        "tag": polarity_tag(analysis.sentiment.polarity),
         'extended_tag': polarity_extended_tag(analysis.sentiment.polarity),
         "assesment": [v[0][0] for x, v in enumerate(analysis.sentiment_assessments.assessments)]
     }
@@ -69,7 +69,7 @@ def get_sentiment(text, language="en", extended=True):
         return __get_extended_analysis(text, language, tmp)
     else:
         logging.debug('Simple message request')
-        return {'polarity': tmp.sentiment.polarity, 'subjectivity': tmp.sentiment.subjectivity, 'tag': __polarity_tag(tmp.sentiment.polarity)}
+        return {'polarity': tmp.sentiment.polarity, 'subjectivity': tmp.sentiment.subjectivity, 'tag': polarity_tag(tmp.sentiment.polarity)}
 
 def configure_log_level(lvl):
     """
