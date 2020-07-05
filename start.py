@@ -1,8 +1,17 @@
+"""
+Analizador de sentimientos con python
+
+Este programa permite obtener un resultado de los sentimientos contenidos en un texto. 
+Utiliza la librería TextBlob y enriquece el resultado.
+"""
+
 from textblob import TextBlob
 import logging
 
-
 def __polarity_tag(polarity):
+    """
+    Determina si la polaridad de un texto es positiva, neutral o negativa
+    """
     if polarity > 0:
         return 'positive'
     elif polarity == 0:
@@ -11,6 +20,9 @@ def __polarity_tag(polarity):
         return 'negative'
 
 def polarity_extended_tag(polarity):
+    """
+    Determina si un una polaridad es extremadamente positiva, positiva, neutral, negativa, extramadamente negativa
+    """
     if polarity >= 0.6:
         return 'extremly positive'
     elif polarity >= 0.2:
@@ -23,6 +35,9 @@ def polarity_extended_tag(polarity):
         return 'extremly negative'
 
 def __get_extended_analysis(original_text, language, analysis):
+    """
+    Devuelve un resultado extendido del análisis
+    """
     result = {
         "meta":  {
             "original": original_text,
@@ -39,6 +54,9 @@ def __get_extended_analysis(original_text, language, analysis):
     return result
 
 def get_sentiment(text, language="en", extended=True):
+    """
+    Dado un texto devuelve un análisis de sentimientos sobre el texto
+    """
     logging.debug({'text': text, 'lang': language, 'ext': extended})
     tmp = TextBlob(text)
     if language != "en":
@@ -54,6 +72,9 @@ def get_sentiment(text, language="en", extended=True):
         return {'polarity': tmp.sentiment.polarity, 'subjectivity': tmp.sentiment.subjectivity, 'tag': __polarity_tag(tmp.sentiment.polarity)}
 
 def configure_log_level(lvl):
+    """
+    Configura el nivel de log
+    """
     log_level = logging.INFO
     if lvl == 'WARN':
         log_level = logging.WARN
